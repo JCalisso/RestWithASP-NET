@@ -5,7 +5,7 @@ using RestWithASPNet.Services;
 namespace RestWithASPNet.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]  // -- prefixo API para todos os endpoints 
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
@@ -19,15 +19,15 @@ namespace RestWithASPNet.Controllers
         }
 
         
-        // sum
-        [HttpGet("")] //path específico para o método get
+        // FindAll
+        [HttpGet("")] 
         public IActionResult Get()
         {
             return Ok(_personService.FindAll());
         }  
         
-        // sum
-        [HttpGet("{id}")] //path específico para o método get
+        // 
+        [HttpGet("{id}")] // {id} -> parametro que recebe no path
         public IActionResult Get(long id)
         {
             var person = _personService.FindById(id);
@@ -56,7 +56,7 @@ namespace RestWithASPNet.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var person = _personService.FindById();
+            var person = _personService.FindById(id);
             if (person == null) return NotFound();
 
             return NoContent();
