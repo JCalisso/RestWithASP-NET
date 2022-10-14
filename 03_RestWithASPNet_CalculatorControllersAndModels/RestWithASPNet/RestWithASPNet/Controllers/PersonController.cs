@@ -26,7 +26,9 @@ namespace RestWithASPNet.Controllers
             return Ok(_personService.FindAll());
         }  
         
-        // 
+        // Maps GET requests to https://localhost:{port}/api/person/{id}
+        // receiving an ID as in the Request Path
+        // Get with parameters for FindById -> Search by ID
         [HttpGet("{id}")] // {id} -> parametro que recebe no path
         public IActionResult Get(long id)
         {
@@ -36,6 +38,8 @@ namespace RestWithASPNet.Controllers
             return Ok(person);
         }
 
+        // Mpas POST requests to http://localhost:{port}/api/person/
+        // [FromBody] consumes the JSON object set in the request body
         [HttpPost]
         public IActionResult Post([FromBody] Person person)
         {
@@ -44,7 +48,8 @@ namespace RestWithASPNet.Controllers
             return Ok(_personService.Create(person));
         }
 
-
+        // Mpas PUT requests to https://localhost:{port}/api/person/
+        // [FromBody] consumes the JSON object set in the request body
         [HttpPut]
         public IActionResult Put([FromBody] Person person)
         {
@@ -56,9 +61,7 @@ namespace RestWithASPNet.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var person = _personService.FindById(id);
-            if (person == null) return NotFound();
-
+            _personService.Delete(id);
             return NoContent();
         }
     }
