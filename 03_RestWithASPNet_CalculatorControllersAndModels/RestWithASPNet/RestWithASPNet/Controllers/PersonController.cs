@@ -4,8 +4,9 @@ using RestWithASPNet.Services;
 
 namespace RestWithASPNet.Controllers
 {
+    [ApiVersion("1")]
     [ApiController]
-    [Route("api/[controller]")]  // -- prefixo API para todos os endpoints 
+    [Route("api/[controller]/v{version:apiVersion}")]  // -- prefixo API para todos os endpoints 
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;

@@ -19,6 +19,9 @@ IConfiguration config = new ConfigurationBuilder()
 
 var connection = config["db:connection"];
 builder.Services.AddDbContext<SQLContext>(options => options.UseSqlServer(connection));
+
+//Verioning API
+builder.Services.AddApiVersioning();
 builder.Services.AddMvc();
     
 //Dependency Injection
