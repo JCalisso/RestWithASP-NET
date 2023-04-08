@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RestWithASPNet.Models.Context;
-using RestWithASPNet.Services;
-using RestWithASPNet.Services.Implementations;
+using RestWithASPNet.Repository;
+using RestWithASPNet.Repository.Implementations;
 
 
 var builder = WebApplication.CreateBuilder(args);
