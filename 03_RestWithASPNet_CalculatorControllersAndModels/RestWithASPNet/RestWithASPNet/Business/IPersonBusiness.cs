@@ -1,8 +1,8 @@
 ﻿using RestWithASPNet.Model;
 
-namespace RestWithASPNet.Repository
+namespace RestWithASPNet.Business
 {
-    public interface IPersonService
+    public interface IPersonBusiness
     {
         Person Create(Person person);
 

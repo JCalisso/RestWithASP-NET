@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RestWithASPNet.Models.Context;
+using RestWithASPNet.Business;
+using RestWithASPNet.Business.Implementations;
 using RestWithASPNet.Repository;
 using RestWithASPNet.Repository.Implementations;
 
@@ -25,7 +27,8 @@ builder.Services.AddApiVersioning();
 builder.Services.AddMvc();
     
 //Dependency Injection
-builder.Services.AddScoped<IPersonService, PersonServiceImplementation>();
+builder.Services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
+builder.Services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
 
 var app = builder.Build();
 

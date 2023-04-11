@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RestWithASPNet.Repository.Implementations
 {
-    public class PersonServiceImplementation : IPersonService
+    public class PersonRepositoryImplementation : IPersonRepository
     {
         private SQLContext _sqlContext;
         // Constructor
-        public PersonServiceImplementation(SQLContext sqlContext)
+        public PersonRepositoryImplementation(SQLContext sqlContext)
         {
             _sqlContext = sqlContext;
         }
@@ -51,7 +51,7 @@ namespace RestWithASPNet.Repository.Implementations
         #region Update
         public Person Update(Person person)
         {
-            if (!Exist(person.Id)) return new Person();
+            if (!Exists(person.Id)) return new Person();
 
             var result = _sqlContext.Persons.SingleOrDefault(param => param.Id.Equals(person.Id));
 
@@ -93,7 +93,7 @@ namespace RestWithASPNet.Repository.Implementations
         #endregion
 
         #region Exists
-        private bool Exist(long id)
+        public bool Exists(long id)
         {
             return _sqlContext.Persons.Any(param => param.Id.Equals(id));
         }

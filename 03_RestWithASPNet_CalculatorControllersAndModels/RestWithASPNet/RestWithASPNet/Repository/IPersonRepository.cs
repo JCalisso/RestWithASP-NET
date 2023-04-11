@@ -2,7 +2,7 @@
 
 namespace RestWithASPNet.Repository
 {
-    public interface IPersonService
+    public interface IPersonRepository
     {
         Person Create(Person person);
 
@@ -13,5 +13,7 @@ namespace RestWithASPNet.Repository
         Person Update(Person person);
 
         void Delete(long id);
+
+        bool Exists(long id);
     }
 }
