@@ -1,4 +1,4 @@
-﻿using RestWithASPNet.Model;
+﻿using RestWithASPNet.Models;
 using RestWithASPNet.Models.Context;
 using System.Collections.Generic;
 using System;
@@ -51,7 +51,9 @@ namespace RestWithASPNet.Repository.Implementations
         #region Update
         public Person Update(Person person)
         {
-            if (!Exists(person.Id)) return new Person();
+            // We check if the person exists in the database
+            // If it doesn't exist
+            if (!Exists(person.Id)) return null;
 
             var result = _sqlContext.Persons.SingleOrDefault(param => param.Id.Equals(person.Id));
 

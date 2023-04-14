@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestWithASPNet.Model;
+using RestWithASPNet.Models;
 
 namespace RestWithASPNet.Models.Context
 {
@@ -13,5 +13,6 @@ namespace RestWithASPNet.Models.Context
         public SQLContext(DbContextOptions<SQLContext> options) : base(options) { }
 
         public DbSet<Person> Persons { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }

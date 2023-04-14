@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using RestWithASPNet.Model;
+using RestWithASPNet.Models;
 using RestWithASPNet.Business;
 
 namespace RestWithASPNet.Controllers

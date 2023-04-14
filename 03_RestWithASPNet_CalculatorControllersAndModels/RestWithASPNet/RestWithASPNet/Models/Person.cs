@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RestWithASPNet.Model
+namespace RestWithASPNet.Models
 {
     // Anotation - usado para especificar um nome referente  
     // ao nome usado na base quando os mesmos são diferentes
@@ -8,7 +8,7 @@ namespace RestWithASPNet.Model
     public class Person
     {
         [Column("id")]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Column("first_name")]
         public string FirstName { get; set; }

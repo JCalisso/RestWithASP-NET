@@ -1,4 +1,4 @@
-﻿using RestWithASPNet.Model;
+﻿using RestWithASPNet.Models;
 using RestWithASPNet.Models.Context;
 using RestWithASPNet.Repository;
 using System.Collections.Generic;

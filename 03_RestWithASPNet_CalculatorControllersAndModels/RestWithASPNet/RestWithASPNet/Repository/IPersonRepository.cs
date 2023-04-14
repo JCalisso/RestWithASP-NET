@@ -1,4 +1,4 @@
-﻿using RestWithASPNet.Model;
+﻿using RestWithASPNet.Models;
 
 namespace RestWithASPNet.Repository
 {
