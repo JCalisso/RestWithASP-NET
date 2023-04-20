@@ -4,16 +4,16 @@ namespace RestWithASPNet.Repository
 {
     public interface IBookRepository
     {
-        //Book Create(Book book);
+        Book Create(Book book);
 
-        //Book FindById(long id);
+        Book FindById(int id);
 
-        List<Book> FindAllBooks();
+        List<Book> FindAll();
 
-        //Book Update(Book book);
+        Book Update(Book book);
 
-        //void Delete(long id);
+        void Delete(int id);
 
-        //bool Exists(long id);
+        bool Exists(int id);
     }
 }

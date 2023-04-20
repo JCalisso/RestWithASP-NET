@@ -23,7 +23,33 @@ namespace RestWithASPNet.Controllers
         [HttpGet("")]
         public IActionResult Get()
         {
-            return Ok(_bookBusiness.FindAllBooks());
+            return Ok(_bookBusiness.FindAll());
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var book = _bookBusiness.FindById(id);
+            if (book == null) { return NotFound(); }
+
+            return Ok(book);
+        }
+
+        [HttpPut]
+        public IActionResult Put([FromBody] Book book)  // Recebe um payload
+        {
+            if (book == null) return BadRequest();
+
+            return Ok(_bookBusiness.Update(book));
+        }
+
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Book book)
+        {
+            if (book == null) return BadRequest();
+
+            return Ok(_bookBusiness.Create(book));
         }
     }
 }

@@ -25,7 +25,7 @@ namespace RestWithASPNet.Business.Implementations
         #endregion
 
         #region FindById 
-        public Person FindById(long id)
+        public Person FindById(int id)
         {
             return _repository.FindById(id);
         }
@@ -49,7 +49,7 @@ namespace RestWithASPNet.Business.Implementations
 
         #region Delete
         // Method responsible for deleting a person from an ID
-        public void Delete(long id)
+        public void Delete(int id)
         {
             _repository.Delete(id);
         }

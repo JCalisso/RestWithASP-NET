@@ -13,9 +13,29 @@ namespace RestWithASPNet.Business.Implementations
             _bookRepository = bookRepository;
         }
 
-        public List<Book> FindAllBooks()
+        public List<Book> FindAll()
         {
-            return _bookRepository.FindAllBooks();
+            return _bookRepository.FindAll();
+        }
+
+        public Book FindById(int Id)
+        {
+            return _bookRepository.FindById(Id);
+        }
+
+        public Book Update(Book book)
+        {
+            return _bookRepository.Update(book);
+        }
+
+        public Book Create(Book book)
+        {
+            return _bookRepository.Create(book);
+        }
+
+        public void Delete(int id)
+        {
+            _bookRepository.Delete(id);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace RestWithASPNet.Controllers
         // receiving an ID as in the Request Path
         // Get with parameters for FindById -> Search by ID
         [HttpGet("{id}")] // {id} -> parametro que recebe no path
-        public IActionResult Get(long id)
+        public IActionResult Get(int id)
         {
             var person = _personBusiness.FindById(id);
             if (person == null) return NotFound();
@@ -60,7 +60,7 @@ namespace RestWithASPNet.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public IActionResult Delete(int id)
         {
             _personBusiness.Delete(id);
             return NoContent();

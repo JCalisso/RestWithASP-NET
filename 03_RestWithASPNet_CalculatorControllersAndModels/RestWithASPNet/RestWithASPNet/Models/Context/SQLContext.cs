@@ -5,10 +5,7 @@ namespace RestWithASPNet.Models.Context
 {
     public class SQLContext : DbContext
     {
-        public SQLContext()
-        {
-
-        }
+        public SQLContext(){}
 
         public SQLContext(DbContextOptions<SQLContext> options) : base(options) { }
 

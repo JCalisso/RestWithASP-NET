@@ -24,7 +24,7 @@ namespace RestWithASPNet.Repository.Implementations
         #endregion
 
         #region FindById 
-        public Person FindById(long id)
+        public Person FindById(int id)
         {
             return _sqlContext.Persons.SingleOrDefault(param => param.Id.Equals(id));
         }
@@ -76,7 +76,7 @@ namespace RestWithASPNet.Repository.Implementations
 
         #region Delete
         // Method responsible for deleting a person from an ID
-        public void Delete(long id)
+        public void Delete(int id)
         {
             var result = _sqlContext.Persons.SingleOrDefault(param => param.Id.Equals(id));
             try
@@ -95,7 +95,7 @@ namespace RestWithASPNet.Repository.Implementations
         #endregion
 
         #region Exists
-        public bool Exists(long id)
+        public bool Exists(int id)
         {
             return _sqlContext.Persons.Any(param => param.Id.Equals(id));
         }
