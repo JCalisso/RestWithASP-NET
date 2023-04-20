@@ -51,5 +51,13 @@ namespace RestWithASPNet.Controllers
 
             return Ok(_bookBusiness.Create(book));
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _bookBusiness.Delete(id);
+
+            return NoContent();
+        }
     }
 }
