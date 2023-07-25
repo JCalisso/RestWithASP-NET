@@ -4,6 +4,7 @@ using RestWithASPNet.Business;
 using RestWithASPNet.Business.Implementations;
 using RestWithASPNet.Repository;
 using RestWithASPNet.Repository.Implementations;
+using RestWithASPNet.Repository.Generic;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,7 +48,7 @@ builder.Services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
 builder.Services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
 
 builder.Services.AddScoped<IBookBusiness, BookBusinessImplementation>();
-builder.Services.AddScoped<IBookRepository, BookRepositoryImplementation>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
 
 var app = builder.Build();

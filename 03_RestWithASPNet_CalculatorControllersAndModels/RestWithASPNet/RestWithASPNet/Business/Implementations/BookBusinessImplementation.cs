@@ -7,35 +7,35 @@ namespace RestWithASPNet.Business.Implementations
 {
     public class BookBusinessImplementation : IBookBusiness
     {
-        private readonly IBookRepository _bookRepository;
-        public BookBusinessImplementation(IBookRepository bookRepository)
+        private readonly IRepository<Book> _repository;
+        public BookBusinessImplementation(IRepository<Book> repository)
         {
-            _bookRepository = bookRepository;
+            _repository = repository;
         }
 
         public List<Book> FindAll()
         {
-            return _bookRepository.FindAll();
+            return _repository.FindAll();
         }
 
         public Book FindById(int Id)
         {
-            return _bookRepository.FindById(Id);
+            return _repository.FindById(Id);
         }
 
         public Book Update(Book book)
         {
-            return _bookRepository.Update(book);
+            return _repository.Update(book);
         }
 
         public Book Create(Book book)
         {
-            return _bookRepository.Create(book);
+            return _repository.Create(book);
         }
 
         public void Delete(int id)
         {
-            _bookRepository.Delete(id);
+            _repository.Delete(id);
         }
     }
 }
