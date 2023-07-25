@@ -10,6 +10,6 @@ namespace RestWithASPNet.Models.Context
         public SQLContext(DbContextOptions<SQLContext> options) : base(options) { }
 
         public DbSet<Person> Persons { get; set; }
-        public DbSet<BookVO> Books { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }

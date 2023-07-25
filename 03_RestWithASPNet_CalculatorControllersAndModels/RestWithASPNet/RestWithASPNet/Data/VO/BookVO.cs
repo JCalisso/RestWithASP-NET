@@ -1,7 +1,4 @@
-﻿using RestWithASPNet.Models.Base;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace RestWithASPNet.Models
+﻿namespace RestWithASPNet.Data.VO
 {
     public class BookVO
     {

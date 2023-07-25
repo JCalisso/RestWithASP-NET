@@ -1,16 +1,16 @@
-﻿using RestWithASPNet.Models;
+﻿using RestWithASPNet.Data.VO;
 
 namespace RestWithASPNet.Business
 {
     public interface IBookBusiness
     {
-        Book Create(Book book);
+        BookVO Create(BookVO book);
 
-        Book FindById(int id);
+        BookVO FindById(int id);
 
-        List<Book> FindAll();
+        List<BookVO> FindAll();
 
-        Book Update(Book book);
+        BookVO Update(BookVO book);
 
         void Delete(int id);
     }
