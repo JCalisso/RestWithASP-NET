@@ -3,7 +3,6 @@ using RestWithASPNet.Models.Context;
 using RestWithASPNet.Business;
 using RestWithASPNet.Business.Implementations;
 using RestWithASPNet.Repository;
-using RestWithASPNet.Repository.Implementations;
 using RestWithASPNet.Repository.Generic;
 using Serilog;
 
@@ -45,9 +44,8 @@ builder.Services.AddMvc();
 
 //Dependency Injection
 builder.Services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
-builder.Services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
-
 builder.Services.AddScoped<IBookBusiness, BookBusinessImplementation>();
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
 

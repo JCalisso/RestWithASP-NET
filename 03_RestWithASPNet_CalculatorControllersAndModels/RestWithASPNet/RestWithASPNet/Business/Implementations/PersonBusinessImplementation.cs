@@ -1,17 +1,13 @@
 ﻿using RestWithASPNet.Models;
-using RestWithASPNet.Models.Context;
 using RestWithASPNet.Repository;
-using System.Collections.Generic;
-using System;
-using Microsoft.EntityFrameworkCore;
 
 namespace RestWithASPNet.Business.Implementations
 {
     public class PersonBusinessImplementation : IPersonBusiness
     {
-        private readonly IPersonRepository _repository;
+        private readonly IRepository<Person> _repository;
         // Constructor
-        public PersonBusinessImplementation(IPersonRepository repository)
+        public PersonBusinessImplementation(IRepository<Person> repository)
         {
             _repository = repository;
         }

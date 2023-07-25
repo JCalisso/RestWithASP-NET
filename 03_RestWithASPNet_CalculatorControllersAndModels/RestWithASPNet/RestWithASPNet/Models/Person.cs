@@ -1,14 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using RestWithASPNet.Models.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestWithASPNet.Models
 {
     // Anotation - usado para especificar um nome referente  
     // ao nome usado na base quando os mesmos são diferentes
     [Table("person")]
-    public class Person
+    public class Person : BaseEntity
     {
-        [Column("id")]
-        public int Id { get; set; }
 
         [Column("first_name")]
         public string FirstName { get; set; }
