@@ -1,16 +1,16 @@
-﻿using RestWithASPNet.Models;
+﻿using RestWithASPNet.Data.VO;
 
 namespace RestWithASPNet.Business
 {
     public interface IPersonBusiness
     {
-        Person Create(Person person);
+        PersonVO Create(PersonVO person);
 
-        Person FindById(int id);
+        PersonVO FindById(int id);
 
-        List<Person> FindAll();
+        List<PersonVO> FindAll();
 
-        Person Update(Person person);
+        PersonVO Update(PersonVO person);
 
         void Delete(int id);
     }

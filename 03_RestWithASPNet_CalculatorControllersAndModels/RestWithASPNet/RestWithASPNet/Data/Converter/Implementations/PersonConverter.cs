@@ -4,7 +4,7 @@ using RestWithASPNet.Models;
 
 namespace RestWithASPNet.Data.Converter.Implementations
 {
-    public class Converter : IParser<PersonVO, Person>, IParser<Person, PersonVO>
+    public class PersonConverter : IParser<PersonVO, Person>, IParser<Person, PersonVO>
     {
         public Person Parse(PersonVO origin)
         {
@@ -40,7 +40,8 @@ namespace RestWithASPNet.Data.Converter.Implementations
 
         public List<PersonVO> Parse(List<Person> origin)
         {
-            throw new NotImplementedException();
+            if (origin == null) return null;
+            return origin.Select(item => Parse(item)).ToList();
         }
 
     }

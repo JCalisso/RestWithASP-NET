@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using RestWithASPNet.Models;
 using RestWithASPNet.Business;
+using RestWithASPNet.Data.VO;
 
 namespace RestWithASPNet.Controllers
 {
@@ -42,7 +42,7 @@ namespace RestWithASPNet.Controllers
         // Mpas POST requests to http://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object set in the request body
         [HttpPost]
-        public IActionResult Post([FromBody] Person person)
+        public IActionResult Post([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
 
@@ -52,7 +52,7 @@ namespace RestWithASPNet.Controllers
         // Mpas PUT requests to https://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object set in the request body
         [HttpPut]
-        public IActionResult Put([FromBody] Person person)
+        public IActionResult Put([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
 

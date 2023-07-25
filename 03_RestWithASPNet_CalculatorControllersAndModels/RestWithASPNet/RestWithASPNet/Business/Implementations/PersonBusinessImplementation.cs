@@ -1,45 +1,58 @@
 ﻿using RestWithASPNet.Models;
 using RestWithASPNet.Repository;
+using RestWithASPNet.Data.Converter.Implementations;
+using RestWithASPNet.Data.VO;
 
 namespace RestWithASPNet.Business.Implementations
 {
     public class PersonBusinessImplementation : IPersonBusiness
     {
         private readonly IRepository<Person> _repository;
+        private readonly PersonConverter _converter;
         // Constructor
         public PersonBusinessImplementation(IRepository<Person> repository)
         {
             _repository = repository;
+            _converter = new PersonConverter();
         }
 
         #region FindAll
         // retorna uma listagem de pessoa
-        public List<Person> FindAll()
+        public List<PersonVO> FindAll()
         {
-            return _repository.FindAll();
+            return _converter.Parse(_repository.FindAll());
         }
         #endregion
 
         #region FindById 
-        public Person FindById(int id)
+        public PersonVO FindById(int id)
         {
-            return _repository.FindById(id);
+            return _converter.Parse(_repository.FindById(id));
         }
         #endregion
 
         #region Create
         // Method responsible for creating a new person
         // If we had a database this would be the time to persist the data
-        public Person Create(Person person)
+        public PersonVO Create(PersonVO person)
         {
-            return _repository.Create(person);
+            //Quando um objeto chega, ele é um VO, por isso é necessário 
+            //parcear ele antes de  persistir na base de dados como entidade, 
+            //retornando o resultado convertendo novamente para Value Object (VO)
+            var personEntity = _converter.Parse(person);
+            personEntity = _repository.Create(personEntity);
+
+            return _converter.Parse(personEntity);
         }
         #endregion
 
         #region Update
-        public Person Update(Person person)
+        public PersonVO Update(PersonVO person)
         {
-            return _repository.Update(person);
+            var personEntity = _converter.Parse(person);
+            personEntity = _repository.Update(personEntity);
+
+            return _converter.Parse(personEntity);
         }
         #endregion
 
