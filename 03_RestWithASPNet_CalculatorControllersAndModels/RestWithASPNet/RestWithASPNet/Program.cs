@@ -5,6 +5,7 @@ using RestWithASPNet.Business.Implementations;
 using RestWithASPNet.Repository;
 using RestWithASPNet.Repository.Generic;
 using Serilog;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,18 @@ Log.Logger = new LoggerConfiguration()
 // ser injetados diretamente na aplicação assim como
 // o exemplo abaixo:
 IWebHostEnvironment environment = builder.Environment;
+
+builder.Services.AddMvc(options =>
+{
+    options.RespectBrowserAcceptHeader = true;
+
+    options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
+
+    options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+
+
+})
+.AddXmlSerializerFormatters();
 
 if (environment.IsDevelopment())
 {
