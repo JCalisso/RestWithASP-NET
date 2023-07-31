@@ -6,6 +6,8 @@ using RestWithASPNet.Repository;
 using RestWithASPNet.Repository.Generic;
 using Serilog;
 using Microsoft.Net.Http.Headers;
+using RestWithASPNet.Hypermedia.Filters;
+using RestWithASPNet.Hypermedia.Enricher;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +53,12 @@ if (environment.IsDevelopment())
 // Add services to the container.
 builder.Services.AddControllers();
 
+var filterOptions = new HyperMediaFilterOptions();
+filterOptions.ContentResponseEnricherList.Add(new PersonEnricher());
+filterOptions.ContentResponseEnricherList.Add(new BookEnricher());
+
+builder.Services.AddSingleton(filterOptions);
+
 //Verioning API
 builder.Services.AddApiVersioning();
 builder.Services.AddMvc();
@@ -71,6 +79,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
 
 app.Run();
 

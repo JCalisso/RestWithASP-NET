@@ -29,8 +29,7 @@ namespace RestWithASPNet.Hypermedia.Filters
                     .FirstOrDefault(x => x.CanEnrich(context));
 
                 if (enricher != null) Task.FromResult(enricher.Enrich(context));
-            }
-            throw new NotImplementedException();
+            }            
         }
     }
 }

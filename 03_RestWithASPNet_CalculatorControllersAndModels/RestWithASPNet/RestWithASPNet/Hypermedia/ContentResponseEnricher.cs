@@ -6,7 +6,7 @@ using System.Collections.Concurrent;
 
 namespace RestWithASPNet.Hypermedia
 {
-    public abstract class ContentResponseEnricher<T> : IResponseEnricher where T : ISupportHyperMedia
+    public abstract class ContentResponseEnricher<T> : IResponseEnricher where T : ISupportsHyperMedia
     {
         public ContentResponseEnricher()
         {
@@ -18,7 +18,7 @@ namespace RestWithASPNet.Hypermedia
             return contentType == typeof(T) || contentType == typeof(List<T>);
         }
 
-        protected abstract Task EnricherModel(T content, IUrlHelper urlHelper);
+        protected abstract Task EnrichModel(T content, IUrlHelper urlHelper);
 
         bool IResponseEnricher.CanEnrich(ResultExecutingContext response)
         {
@@ -38,7 +38,7 @@ namespace RestWithASPNet.Hypermedia
             {
                 if (okObjectResult.Value is T model)
                 {
-                    await EnricherModel(model, urlHelper);
+                    await EnrichModel(model, urlHelper);
                 }
                 else if (okObjectResult.Value is List<T> collection)
                 {
@@ -46,7 +46,7 @@ namespace RestWithASPNet.Hypermedia
 
                     Parallel.ForEach(bag, (element) =>
                     {
-                        EnricherModel(element, urlHelper);
+                        EnrichModel(element, urlHelper);
                     });
                 }
                 await Task.FromResult<object>(null);
