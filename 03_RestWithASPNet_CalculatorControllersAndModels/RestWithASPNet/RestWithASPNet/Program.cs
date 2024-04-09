@@ -12,6 +12,10 @@ using Microsoft.AspNetCore.Rewrite;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var appName = "API RESTful developed in course 'REST API's from 0 to Azure with ASP.NET Core 8 and Docker'";
+var appVersion = "v1";
+var appDescription = $"REST API RESTful developed in course '{appName}'";
+
 // Add configuration builder 
 IConfiguration config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
@@ -51,7 +55,17 @@ if (environment.IsDevelopment())
     MigrateDatabase(connection);
 }
 
+
 // Add services to the container.
+builder.Services.AddRouting(options => options.LowercaseUrls = true); //configura as letras minúsculas na URL
+
+builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
+{
+    builder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
 builder.Services.AddControllers();
 
 var filterOptions = new HyperMediaFilterOptions();
@@ -64,14 +78,15 @@ builder.Services.AddSingleton(filterOptions);
 builder.Services.AddApiVersioning();
 builder.Services.AddMvc();
 
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen( c =>
 {
-    c.SwaggerDoc("v1",
+    c.SwaggerDoc(appVersion,
         new Microsoft.OpenApi.Models.OpenApiInfo
         {
-            Title = "REST API's from 0 to Azure with ASP.NET Core 5 and Docker",
-            Version = "v1",
-            Description = "API RESTful developed in course 'REST API's from 0 to Azure with ASP.NET Core 5 and Docker'",
+            Title = appName,
+            Version = appVersion,
+            Description = appDescription,
             Contact = new Microsoft.OpenApi.Models.OpenApiContact
             {
                 Name = "Jean Calisso",
@@ -92,22 +107,30 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
+});
+
+app.UseCors();
 
 app.UseSwagger();
 app.UseSwaggerUI( c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json",
-        "REST API's from 0 to Azure with ASP.NET Core 5 and Docker - v1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{appName} - {appVersion}");
 });
 
 var option = new RewriteOptions();
 option.AddRedirect("^$", "swagger");
 app.UseRewriter(option);
 
-app.MapControllers();
-app.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
+//app.MapControllers();
+//app.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
 
 app.Run();
 
