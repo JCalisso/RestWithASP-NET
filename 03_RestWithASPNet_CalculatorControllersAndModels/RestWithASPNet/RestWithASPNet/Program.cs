@@ -8,6 +8,7 @@ using Serilog;
 using Microsoft.Net.Http.Headers;
 using RestWithASPNet.Hypermedia.Filters;
 using RestWithASPNet.Hypermedia.Enricher;
+using Microsoft.AspNetCore.Rewrite;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,6 +64,22 @@ builder.Services.AddSingleton(filterOptions);
 builder.Services.AddApiVersioning();
 builder.Services.AddMvc();
 
+builder.Services.AddSwaggerGen( c =>
+{
+    c.SwaggerDoc("v1",
+        new Microsoft.OpenApi.Models.OpenApiInfo
+        {
+            Title = "REST API's from 0 to Azure with ASP.NET Core 5 and Docker",
+            Version = "v1",
+            Description = "API RESTful developed in course 'REST API's from 0 to Azure with ASP.NET Core 5 and Docker'",
+            Contact = new Microsoft.OpenApi.Models.OpenApiContact
+            {
+                Name = "Jean Calisso",
+                Url = new Uri("https://github.com/JCalisso")
+            }
+        });
+});
+
 //Dependency Injection
 builder.Services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
 builder.Services.AddScoped<IBookBusiness, BookBusinessImplementation>();
@@ -77,6 +94,17 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseSwagger();
+app.UseSwaggerUI( c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json",
+        "REST API's from 0 to Azure with ASP.NET Core 5 and Docker - v1");
+});
+
+var option = new RewriteOptions();
+option.AddRedirect("^$", "swagger");
+app.UseRewriter(option);
 
 app.MapControllers();
 app.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
