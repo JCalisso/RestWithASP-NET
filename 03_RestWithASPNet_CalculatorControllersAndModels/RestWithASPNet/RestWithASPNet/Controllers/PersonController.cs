@@ -23,6 +23,10 @@ namespace RestWithASPNet.Controllers
         
         // FindAll
         [HttpGet("")]
+        [ProducesResponseType((200), Type = typeof(List<PersonVO>))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
@@ -33,6 +37,10 @@ namespace RestWithASPNet.Controllers
         // receiving an ID as in the Request Path
         // Get with parameters for FindById -> Search by ID
         [HttpGet("{id}")] // {id} -> parametro que recebe no path
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(int id)
         {
@@ -45,6 +53,9 @@ namespace RestWithASPNet.Controllers
         // Mpas POST requests to http://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object set in the request body
         [HttpPost]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody] PersonVO person)
         {
@@ -56,6 +67,9 @@ namespace RestWithASPNet.Controllers
         // Mpas PUT requests to https://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object set in the request body
         [HttpPut]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody] PersonVO person)
         {
@@ -64,7 +78,10 @@ namespace RestWithASPNet.Controllers
             return Ok(_personBusiness.Update(person));
         }
 
-        [HttpDelete("{id}")]        
+        [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Delete(int id)
         {
             _personBusiness.Delete(id);
