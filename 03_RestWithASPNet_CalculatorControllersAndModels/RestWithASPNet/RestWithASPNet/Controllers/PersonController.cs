@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestWithASPNet.Business;
 using RestWithASPNet.Data.VO;
@@ -7,6 +8,7 @@ namespace RestWithASPNet.Controllers
 {
     [ApiVersion("1")]
     [ApiController]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]  // -- prefixo API para todos os endpoints 
     public class PersonController : ControllerBase
     {

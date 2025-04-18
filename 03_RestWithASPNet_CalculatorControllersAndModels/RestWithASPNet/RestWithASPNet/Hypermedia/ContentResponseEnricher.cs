@@ -8,10 +8,7 @@ namespace RestWithASPNet.Hypermedia
 {
     public abstract class ContentResponseEnricher<T> : IResponseEnricher where T : ISupportsHyperMedia
     {
-        public ContentResponseEnricher()
-        {
-
-        }
+        public ContentResponseEnricher() { }
 
         public bool CanEnrich(Type contentType)
         {
@@ -19,6 +16,7 @@ namespace RestWithASPNet.Hypermedia
         }
 
         protected abstract Task EnrichModel(T content, IUrlHelper urlHelper);
+
 
         bool IResponseEnricher.CanEnrich(ResultExecutingContext response)
         {

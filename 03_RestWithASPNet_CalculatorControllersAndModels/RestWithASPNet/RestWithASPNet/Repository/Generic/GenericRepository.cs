@@ -43,7 +43,7 @@ namespace RestWithASPNet.Repository.Generic
         }
 
         public T Update(T item)
-        {
+        { 
             var result = dataset.SingleOrDefault(param => param.Id.Equals(item.Id));
 
             if (result != null)
