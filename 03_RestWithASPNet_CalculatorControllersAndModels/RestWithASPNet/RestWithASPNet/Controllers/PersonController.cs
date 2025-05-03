@@ -80,6 +80,22 @@ namespace RestWithASPNet.Controllers
             return Ok(_personBusiness.Update(person));
         }
 
+        // Maps GET requests to https://localhost:{port}/api/person/{id}
+        // receiving an ID as in the Request Path
+        // Get with parameters for FindById -> Search by ID
+        [HttpPatch("{id}")] // {id} -> parametro que recebe no path
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Patch(int id)
+        {
+            var person = _personBusiness.Disable(id);
+
+            return Ok(person);
+        }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
