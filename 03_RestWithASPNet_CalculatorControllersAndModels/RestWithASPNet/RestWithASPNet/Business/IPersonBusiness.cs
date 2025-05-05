@@ -8,6 +8,8 @@ namespace RestWithASPNet.Business
 
         PersonVO FindById(int id);
 
+        List<PersonVO> FindByName(string ?firstName, string ?lastName);
+
         List<PersonVO> FindAll();
 
         PersonVO Update(PersonVO person);

@@ -52,6 +52,23 @@ namespace RestWithASPNet.Controllers
             return Ok(person);
         }
 
+        // Maps GET requests to https://localhost:{port}/api/person/findPersonByName
+        // receiving an ID as in the Request Path
+        // Get with parameters for FindById -> Search by Name
+        [HttpGet("findPersonByName")] // {id} -> parametro que recebe no path
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Get([FromQuery] string ?firstName, [FromQuery] string ?lastName)
+        {
+            var person = _personBusiness.FindByName(firstName, lastName);
+            if (person == null) return NotFound();
+
+            return Ok(person);
+        }
+
         // Mpas POST requests to http://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object set in the request body
         [HttpPost]

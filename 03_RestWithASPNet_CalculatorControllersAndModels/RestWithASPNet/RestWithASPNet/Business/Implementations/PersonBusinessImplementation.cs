@@ -2,6 +2,7 @@
 using RestWithASPNet.Repository;
 using RestWithASPNet.Data.Converter.Implementations;
 using RestWithASPNet.Data.VO;
+using Microsoft.IdentityModel.Protocols.Configuration;
 
 namespace RestWithASPNet.Business.Implementations
 {
@@ -28,6 +29,13 @@ namespace RestWithASPNet.Business.Implementations
         public PersonVO FindById(int id)
         {
             return _converter.Parse(_repository.FindById(id));
+        }
+        #endregion
+
+        #region FindByName
+        public List<PersonVO> FindByName(string? firstName, string? lastName)
+        {
+            return _converter.Parse(_repository.FindByName(firstName, lastName));
         }
         #endregion
 

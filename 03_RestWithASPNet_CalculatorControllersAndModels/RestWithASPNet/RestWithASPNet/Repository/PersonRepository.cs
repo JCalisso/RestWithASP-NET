@@ -28,5 +28,24 @@ namespace RestWithASPNet.Repository
             }
             return person;
         }
+
+        public List<Person> FindByName(string ?firstName, string ?lastName)
+        {
+            if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName))
+            {
+                return _sqlContext.Persons.Where(
+                    p => p.FirstName.Contains(firstName) &&
+                    p.LastName.Contains(lastName)).ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName))
+            {
+                return _sqlContext.Persons.Where(p => p.FirstName.Contains(firstName)).ToList();
+            }
+            if (string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName))
+            {
+                return _sqlContext.Persons.Where(p => p.LastName.Contains(lastName)).ToList();
+            }
+            return null;
+        }
     }
 }
