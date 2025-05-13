@@ -16,5 +16,9 @@ namespace RestWithASPNet.Repository
         void Delete(int id);
 
         bool Exists(int id);
+
+        List<T> FindWithPagedSearch(string query);
+
+        int GetCount(string query);
     }
 }

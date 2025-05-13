@@ -3,6 +3,7 @@ using RestWithASPNet.Repository;
 using RestWithASPNet.Data.Converter.Implementations;
 using RestWithASPNet.Data.VO;
 using Microsoft.IdentityModel.Protocols.Configuration;
+using RestWithASPNet.Hypermedia.Utils;
 
 namespace RestWithASPNet.Business.Implementations
 {
@@ -24,6 +25,41 @@ namespace RestWithASPNet.Business.Implementations
             return _converter.Parse(_repository.FindAll());
         }
         #endregion
+
+
+        public PagedSearchVO<PersonVO> FindWithPagedSearch(string name, string sortDirection, int pageSize, int currentPage)
+        {
+            var sort = (!string.IsNullOrWhiteSpace(sortDirection) && !sortDirection.Equals("desc")) ? "asc" : "desc";
+            var size = (pageSize < 1) ? 10 : pageSize;
+            var offset = currentPage > 0 ? (currentPage - 1) * size : 0;
+
+            //query principal
+            string query = @"SELECT *
+                             FROM dbo.person p
+                             WHERE 1 = 1"; 
+            if (!string.IsNullOrWhiteSpace(name)){ query += $" AND p.first_name like '%{name}%'"; }
+            query += $" ORDER BY p.first_name {sortDirection} " +
+                     $" OFFSET {offset} ROWS" +
+                     $" FETCH NEXT {pageSize} ROWS ONLY" ;
+
+            //query 
+            string countQuery = @"SELECT COUNT(*)
+                                  FROM dbo.person p
+                                  WHERE 1 = 1";
+            if (!string.IsNullOrWhiteSpace(name)) { countQuery += $" AND p.first_name like '%{name}%'"; }
+
+            var persons = _repository.FindWithPagedSearch(query);
+
+            int totalResults = _repository.GetCount(countQuery);
+
+            return new PagedSearchVO<PersonVO> {
+                CurrentPage = currentPage,
+                List = _converter.Parse(persons),
+                PageSize = size,
+                SortDirections = sort,
+                TotalResults = totalResults
+            };
+        }
 
         #region FindById 
         public PersonVO FindById(int id)

@@ -1,4 +1,5 @@
 ﻿using RestWithASPNet.Data.VO;
+using RestWithASPNet.Hypermedia.Utils;
 
 namespace RestWithASPNet.Business
 {
@@ -11,6 +12,8 @@ namespace RestWithASPNet.Business
         List<PersonVO> FindByName(string ?firstName, string ?lastName);
 
         List<PersonVO> FindAll();
+
+        PagedSearchVO<PersonVO> FindWithPagedSearch(string name, string sortDirection, int pageSize, int currentPage);
 
         PersonVO Update(PersonVO person);
 
