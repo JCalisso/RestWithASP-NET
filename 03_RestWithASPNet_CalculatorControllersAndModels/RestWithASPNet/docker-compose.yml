@@ -7,12 +7,33 @@ services:
       MSSQL_SA_PASSWORD: "P@ssw0rd"
     ports:
       - "1433:1433"
+    networks:
+      - udemy-network
+  mssqltools:
+    image: mcr.microsoft.com/mssql-tools
+    container_name: mssqltools
+    depends_on:
+      - sqlserver
     volumes:
-      - sqlserverdata:/var/opt/mssql
+      - /RestWithASPNet/db/migrations/:/tmp/database/migrations
+      - /RestWithASPNet/db/dataset/:/tmp/database/dataset
+      - /RestWithASPNet/ci/init_database.sh:/tmp/ci/init_database.sh
+    command: /bin/bash -c "sleep 10 && /tmp/ci/init_database.sh"
   rest-with-aspnet:
     image: ${DOCKER_REGISTRY-}restwithaspnet
     build:
       context: .
       dockerfile: RestWithASPNet/Dockerfile
     environment:
+      TZ: America/Sao_Paulo
       ASPNETCORE_ENVIRONMENT: Production 
+    ports:
+      - 44300:80
+    depends_on:
+      - sqlserver
+    networks:
+      - udemy-network
+
+networks:
+  udemy-network:
+    driver: bridge

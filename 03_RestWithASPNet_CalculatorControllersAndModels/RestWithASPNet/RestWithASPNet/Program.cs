@@ -38,14 +38,14 @@ IConfiguration config = new ConfigurationBuilder()
 var connection = config["db:connection"];
 builder.Services.AddDbContext<SQLContext>(options => options.UseSqlServer(connection));
 
-//Criação do logger
+//Criaï¿½ï¿½o do logger
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateLogger();
 
 
-// A partir do ASPNETCore 6, alguns serviços podem
-// ser injetados diretamente na aplicação assim como
+// A partir do ASPNETCore 6, alguns serviï¿½os podem
+// ser injetados diretamente na aplicaï¿½ï¿½o assim como
 // o exemplo abaixo:
 IWebHostEnvironment environment = builder.Environment;
 
@@ -61,14 +61,15 @@ builder.Services.AddMvc(options =>
 })
 .AddXmlSerializerFormatters();
 
-if (environment.IsDevelopment())
-{
-    MigrateDatabase(connection);
-}
+// Desabilitado pois agora Ã© executado ao subir a Imagem do Docker
+// if (environment.IsDevelopment())
+// {
+//     MigrateDatabase(connection);
+// }
 
 
 // Add services to the container.
-builder.Services.AddRouting(options => options.LowercaseUrls = true); //configura as letras minúsculas na URL
+builder.Services.AddRouting(options => options.LowercaseUrls = true); //configura as letras minï¿½sculas na URL
 
 var tokenConfigurations = new TokenConfiguration();
 
