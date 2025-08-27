@@ -2,3 +2,4 @@ IF NOT EXISTS (SELECT 1 FROM sys.tables a INNER JOIN sys.columns b ON b.object_i
 BEGIN
   ALTER TABLE dbo.person ADD enabled BIT NOT NULL DEFAULT 1
 END
+GO

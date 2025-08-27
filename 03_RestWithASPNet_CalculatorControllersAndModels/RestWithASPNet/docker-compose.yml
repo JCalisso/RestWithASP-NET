@@ -1,32 +1,28 @@
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
-    environment:
-      ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "P@ssw0rd"
+    hostname: sqlserver
+    build: 
+      context: .
+      dockerfile: db/Dockerfile
+    restart: always
     ports:
       - "1433:1433"
+    environment:
+      MSSQL_SA_PASSWORD: "P@ssw0rd"
+      ACCEPT_EULA: "Y"
+      MSSQL_AGENT_ENABLED: "true"
     networks:
       - udemy-network
-  mssqltools:
-    image: mcr.microsoft.com/mssql-tools
-    container_name: mssqltools
-    depends_on:
-      - sqlserver
-    volumes:
-      - /RestWithASPNet/db/migrations/:/tmp/database/migrations
-      - /RestWithASPNet/db/dataset/:/tmp/database/dataset
-      - /RestWithASPNet/ci/init_database.sh:/tmp/ci/init_database.sh
-    command: /bin/bash -c "sleep 10 && /tmp/ci/init_database.sh"
   rest-with-aspnet:
     image: ${DOCKER_REGISTRY-}restwithaspnet
+    hostname: rest-with-aspnet
     build:
       context: .
       dockerfile: RestWithASPNet/Dockerfile
     environment:
-      TZ: America/Sao_Paulo
       ASPNETCORE_ENVIRONMENT: Production 
+      TZ: America/Sao_Paulo
     ports:
       - 44300:80
     depends_on:

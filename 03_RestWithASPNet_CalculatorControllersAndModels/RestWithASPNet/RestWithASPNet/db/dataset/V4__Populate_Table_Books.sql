@@ -18,3 +18,4 @@ BEGIN
          ('Marc J. Schiller', '20171107', 45.00, 'Os 11 segredos de líderes de TI altamente influentes'),
          ('Aguinaldo Aragon Fernandes e Vladimir Ferraz de Abreu', '20171107', 54.00, 'Implantando a governança de TI')
 END
+GO

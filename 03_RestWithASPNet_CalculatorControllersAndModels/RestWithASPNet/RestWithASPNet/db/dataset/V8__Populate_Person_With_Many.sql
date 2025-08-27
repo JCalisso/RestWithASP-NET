@@ -299,3 +299,4 @@ values ('Florian', 'Pulman', 'Male', '78838 Sommers Trail', 1),
        ('Gusta', 'McElhargy', 'Female', '88109 Northwestern Terrace', 1),
        ('Winnah', 'Lossman', 'Female', '9 East Place', 1),
        ('Xenos', 'Plessing', 'Male', '4 Marcy Circle', 0);
+GO

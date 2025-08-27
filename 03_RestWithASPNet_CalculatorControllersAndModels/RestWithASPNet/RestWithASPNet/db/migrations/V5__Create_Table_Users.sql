@@ -8,3 +8,4 @@ BEGIN
 						 ,refresh_token_expiry_time Datetime                                      NULL
 						 ,UNIQUE ([user_name])) ;
 END
+GO

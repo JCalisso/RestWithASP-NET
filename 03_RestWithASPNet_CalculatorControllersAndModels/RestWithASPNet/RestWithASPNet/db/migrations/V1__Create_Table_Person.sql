@@ -6,3 +6,4 @@ BEGIN
                           ,gender     Varchar(6)   COLLATE Latin1_General_CI_AS NOT NULL 
                           ,address    Varchar(100) COLLATE Latin1_General_CI_AS NOT NULL);
 END
+GO

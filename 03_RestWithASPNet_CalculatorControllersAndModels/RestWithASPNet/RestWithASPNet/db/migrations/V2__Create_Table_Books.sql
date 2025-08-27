@@ -6,3 +6,4 @@ BEGIN
                           ,launch_date Datetime                                  NOT NULL 
                           ,price       Numeric(18,2)                             NOT NULL) ;
 END
+GO
