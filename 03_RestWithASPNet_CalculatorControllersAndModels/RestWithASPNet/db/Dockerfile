@@ -19,9 +19,9 @@ RUN chmod a+x /home/tmp/init_database.sh
 
 EXPOSE 1433
 
-
 # RUN echo "Executando o script init_database.sh ao iniciar o contêiner"
 # ENTRYPOINT ["bin/bash", "-C", "/docker-entrypoint-initdb.d/init_database.sh"]
-CMD /bin/bash -c "/home/tmp/init_database.sh"
+CMD ["/bin/bash", "/home/tmp/init_database.sh"]
+# CMD ["/bin/bash/","/home/tmp/init_database.sh"]
 
 # RUN echo "O contêiner está pronto para ser iniciado com o SQL Server"
