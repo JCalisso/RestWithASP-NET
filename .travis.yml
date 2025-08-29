@@ -5,7 +5,7 @@ mono: none
 dotnet: 8.0
 services: docker
 before_install:
-  - C:\dev\RestWithASP-NET\03_RestWithASPNet_CalculatorControllersAndModels\
+  - cd 03_RestWithASPNet_CalculatorControllersAndModels/RestWithASPNet
   - echo "We are in the right folder!"
 script:
   - docker-compose build
