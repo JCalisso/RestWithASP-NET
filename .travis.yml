@@ -15,7 +15,7 @@ deploy:
   provider: script
   script:
     docker tag restwithaspnet:latest $DOCKER_USERNAME/restwithaspnet:latest;
-    docker tag mcr.microsoft.com/mssql/server:2022-latest $DOCKER_USERNAME/restwithaspnet-db:latest;
+    docker tag restwithaspnet-db:latest $DOCKER_USERNAME/restwithaspnet-db:latest;
     docker push $DOCKER_USERNAME/restwithaspnet;
     docker push $DOCKER_USERNAME/restwithaspnet-db;
   on:
