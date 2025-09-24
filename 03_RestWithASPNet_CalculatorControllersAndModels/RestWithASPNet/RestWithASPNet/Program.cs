@@ -64,7 +64,7 @@ builder.Services.AddMvc(options =>
 // Desabilitado pois agora é executado ao subir a Imagem do Docker
 // if (environment.IsDevelopment())
 // {
-//     MigrateDatabase(connection);
+//      MigrateDatabase(connection);
 // }
 
 
