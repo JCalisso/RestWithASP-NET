@@ -25,6 +25,8 @@
 >
 >    - Durante o *commit/push*, adicionar o PAT no lugar da senha. 
 
+4. Lembrar de verificar a porta da API
+
 <br>
 
 ---
