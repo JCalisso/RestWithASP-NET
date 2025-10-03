@@ -27,6 +27,8 @@ var appName = "API RESTful developed in course 'REST API's from 0 to Azure with 
 var appVersion = "v1";
 var appDescription = $"REST API RESTful developed in course '{appName}'";
 
+DotNetEnv.Env.Load("conn.env");
+
 // Add configuration builder 
 IConfiguration config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
@@ -35,7 +37,9 @@ IConfiguration config = new ConfigurationBuilder()
 
 
 // configure connection with database
-var connection = config["db:connection"];
+//var connection = config["db:connection"];
+
+var connection = Environment.GetEnvironmentVariable("DB_CONNECTION");
 builder.Services.AddDbContext<SQLContext>(options => options.UseSqlServer(connection));
 
 //Cria��o do logger
@@ -71,11 +75,22 @@ builder.Services.AddMvc(options =>
 // Add services to the container.
 builder.Services.AddRouting(options => options.LowercaseUrls = true); //configura as letras min�sculas na URL
 
-var tokenConfigurations = new TokenConfiguration();
 
-new ConfigureFromConfigurationOptions<TokenConfiguration>(
-    builder.Configuration.GetSection("TokenConfigurations")
-).Configure(tokenConfigurations);
+//var tokenConfigurations = new TokenConfiguration();
+var tokenConfigurations = new TokenConfiguration
+{
+    Audience = Environment.GetEnvironmentVariable("TOKEN_AUDIENCE") ?? "",
+    Issuer = Environment.GetEnvironmentVariable("TOKEN_ISSUER") ?? ""   ,
+    Secret = Environment.GetEnvironmentVariable("TOKEN_SECRET") ?? "",
+    Minutes = int.Parse(Environment.GetEnvironmentVariable("TOKEN_MINUTES") ?? "60"),
+    DaysToExpire = int.Parse(Environment.GetEnvironmentVariable("TOKEN_DAYS_TO_EXPIRE") ?? "7")
+};
+
+
+// new ConfigureFromConfigurationOptions<TokenConfiguration>(
+//     //builder.Configuration.GetSection("TokenConfigurations")
+//     builder.Configuration.GetSection("TokenConfigurations")
+// ).Configure(tokenConfigurations);
 
 builder.Services.AddSingleton(tokenConfigurations);
 
