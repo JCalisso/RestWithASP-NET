@@ -1,5 +1,9 @@
-IF NOT EXISTS (SELECT 1 FROM sys.tables a INNER JOIN sys.columns b ON b.object_id = a.object_id WHERE a.name = 'person' and b.name = 'enabled')
-BEGIN
-  ALTER TABLE dbo.person ADD enabled BIT NOT NULL DEFAULT 1
-END
-GO
+
+  ALTER TABLE dbo.person ADD enabled BIT;
+  go
+  ALTER TABLE dbo.person ADD CONSTRAINT df_person_enabled DEFAULT 1 FOR enabled;
+  go
+  ALTER TABLE dbo.person ADD CONSTRAINT ck_person_enabled CHECK (enabled IN (0,1));
+  go
+  UPDATE dbo.person SET enabled = 1;
+  go
